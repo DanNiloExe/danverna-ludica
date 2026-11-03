@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danverna Lúdica ⚔️🎲 - Piquenique & Jogos de Tabuleiro</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cinzel Decorative, MedievalSharp & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=MedievalSharp&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-medieval {
+      font-family: 'MedievalSharp', cursive, serif;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel Decorative', serif;
+    }
+    
+    /* Fundo Temático de Tábuas de Madeira Rústica Medieval */
+    .tavern-bg {
+      background-color: #140d0a;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.25), transparent 75%),
+        linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.5) 100%),
+        repeating-linear-gradient(
+          0deg,
+          #1c120c,
+          #1c120c 70px,
+          #0e0805 72px,
+          #22160e 75px,
+          #1c120c 145px
+        ),
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+    }
+
+    /* Textura de Pergaminho Medieval */
+    .parchment-card {
+      background: #fbf4e2;
+      background-image: radial-gradient(#eddcb9 1px, transparent 0);
+      background-size: 16px 16px;
+      border: 2px solid #b45309;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(180, 83, 9, 0.15);
+    }
+
+    .wood-card {
+      background: linear-gradient(145deg, #2e2017, #1c120b);
+      border: 1px solid #854d0e;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    }
+
+    .game-card-img {
+      height: 160px;
+      width: 100%;
+      object-fit: cover;
+      border-bottom: 2px solid #78350f;
+    }
+  </style>
+</head>
+<body class="tavern-bg min-h-screen text-amber-100 pb-16 antialiased">
+
+  <!-- Header / Banner de Taverna Medieval -->
+  <header class="relative overflow-hidden pt-10 pb-8 px-4 text-center border-b border-amber-900/50">
+    <div class="max-w-3xl mx-auto relative z-10">
+      
+      <!-- Brasão / Insígnia -->
+      <div class="inline-flex items-center gap-3 bg-amber-950/80 border border-amber-600/60 text-amber-300 px-5 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg shadow-amber-950/50">
+        <span>⚔️ Convocação de Aventureiros 🎲</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-cinzel text-amber-400 tracking-wider mb-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+        Danverna Lúdica
+      </h1>
+      <p class="text-lg sm:text-xl font-medieval text-amber-200/90 max-w-2xl mx-auto leading-relaxed">
+        Afiem seus dados, empunhem suas cartas e preparem seus lanches! O Conselho dos Jogadores convoca a guilda para uma tarde de jogos ao ar livre.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 space-y-10 mt-8">
+
+    <!-- Pergaminho de Informações do Encontro -->
+    <section class="parchment-card rounded-3xl p-6 sm:p-8 text-amber-950 relative overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-28 h-28 bg-amber-600/10 rounded-full blur-xl pointer-events-none"></div>
+      
+      <!-- Cabeçalho do Édito + Cronômetro Regressivo -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-amber-800/20 pb-4 mb-6 gap-4">
+        <h2 class="text-2xl sm:text-3xl font-medieval font-bold flex items-center gap-3 text-amber-900">
+          <i data-lucide="scroll" class="text-amber-700"></i> Édito do Encontro
+        </h2>
+
+        <!-- Relógio / Contador Regressivo em Tempo Real -->
+        <div class="bg-amber-950 text-amber-300 px-4 py-2 rounded-2xl border border-amber-700/60 shadow flex items-center gap-3 self-start sm:self-auto">
+          <i data-lucide="hourglass" class="w-5 h-5 animate-spin text-amber-400" style="animation-duration: 6s;"></i>
+          <div>
+            <span class="block text-[10px] uppercase font-bold tracking-wider text-amber-400/80 font-medieval">Tempo Restante</span>
+            <div id="countdown" class="text-sm font-bold font-mono tracking-tight text-amber-200">
+              Carregando...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Data e Hora -->
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-amber-900/5 border border-amber-800/20">
+          <div class="p-3 bg-amber-800 text-amber-100 rounded-xl shadow-md">
+            <i data-lucide="calendar" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-amber-900/70 font-medieval">Data Sagrada</h3>
+            <p class="text-base font-bold text-amber-950 mt-0.5">Sexta (Feriado)</p>
+            <p class="text-sm font-semibold text-amber-800">20 de Novembro • A partir das 13h</p>
+          </div>
+        </div>
+
+        <!-- Local -->
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-emerald-900/5 border border-emerald-800/20">
+          <div class="p-3 bg-emerald-800 text-emerald-100 rounded-xl shadow-md">
+            <i data-lucide="map-pin" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-900/70 font-medieval">Reino / Local</h3>
+            <p class="text-base font-bold text-amber-950 mt-0.5">Parque da Jaqueira</p>
+            <p class="text-sm font-medium text-emerald-800">Sombra das Árvores sem Jaca 🌳</p>
+          </div>
+        </div>
+
+        <!-- O que levar -->
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-orange-900/5 border border-orange-800/20">
+          <div class="p-3 bg-orange-800 text-orange-100 rounded-xl shadow-md">
+            <i data-lucide="utensils" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-orange-900/70 font-medieval">Provisões</h3>
+            <p class="text-base font-bold text-amber-950 mt-0.5">Lanchinhos & Elixires</p>
+            <p class="text-sm font-medium text-orange-800">Canga, água e guloseimas</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Adicionar ao Calendário / Agenda -->
+      <div class="pt-4 border-t border-amber-800/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <span class="text-xs font-bold text-amber-900/80 font-medieval uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="bell" class="w-4 h-4 text-amber-700"></i> Não esqueça a data sagrada:
+        </span>
+        <div class="flex flex-wrap gap-2.5 w-full sm:w-auto">
+          <!-- Botão Direto do Google Agenda -->
+          <a id="btn-google-calendar" target="_blank" rel="noopener noreferrer" 
+             class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-800 hover:bg-amber-900 text-amber-100 rounded-xl font-bold text-xs shadow-md transition border border-amber-950/20">
+            <i data-lucide="calendar-plus" class="w-4 h-4 text-amber-300"></i> Adicionar ao Google Agenda
+          </a>
+          <!-- Botão Apple / iOS Calendar (.ics) -->
+          <button id="btn-ics-calendar" 
+                  class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-900/10 hover:bg-amber-900/20 text-amber-950 rounded-xl font-bold text-xs border border-amber-800/30 transition">
+            <i data-lucide="download" class="w-4 h-4 text-amber-800"></i> Baixar .ICS (Apple/Outlook)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arsenal de Jogos de Tabuleiro (10 Jogos) -->
+    <section>
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-cinzel text-amber-400 drop-shadow">
+          🎲 Arsenal de Jogos da Taverna
+        </h2>
+        <p class="text-amber-200/80 font-medieval text-lg mt-1">Estes 10 artefatos lúdicos estão prontos para a mesa!</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="games-list">
+        <!-- 1. Nem a Pato! -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/55059_m.jpg" alt="Nem a Pato!" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/451a03/fde68a?text=Nem+a+Pato!'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-amber-950/90 text-yellow-300 border border-yellow-600/50 font-semibold text-xs rounded-lg shadow">Party Game</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Nem a Pato! 🦆</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 2-6 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Jogo leve, rápido e divertido para dar boas risadas e testar o improviso.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⚡ Rápido</span>
+            <span class="font-semibold text-amber-400">Descontraído</span>
+          </div>
+        </div>
+
+        <!-- 2. Coup -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-purple-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/460_m.jpg" alt="Coup" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/3b0764/f3e8ff?text=Coup'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-purple-950/90 text-purple-300 border border-purple-600/50 font-semibold text-xs rounded-lg shadow">Blefe & Intriga</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Coup 👑</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 3-6 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Manipulação, blefes implacáveis e controle na luta pelo poder do tribunal.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 15 min</span>
+            <span class="font-semibold text-purple-400">Dedução Social</span>
+          </div>
+        </div>
+
+        <!-- 3. Unstable Unicorns -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-pink-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/15264_m.jpg" alt="Unstable Unicorns" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/831843/fce7f3?text=Unstable+Unicorns'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-pink-950/90 text-pink-300 border border-pink-600/50 font-semibold text-xs rounded-lg shadow">Caos & Estratégia</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Unstable Unicorns 🦄</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 2-8 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Construa seu exército de unicórnios destruindo as amizades ao redor da mesa!</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 30-45 min</span>
+            <span class="font-semibold text-pink-400">Carteado Caótico</span>
+          </div>
+        </div>
+
+        <!-- 4. The Resistance -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-rose-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/780_m.jpg" alt="The Resistance" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/4c0519/ffe4e6?text=The+Resistance'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-rose-950/90 text-rose-300 border border-rose-600/50 font-semibold text-xs rounded-lg shadow">Identidades Secretas</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">The Resistance 🗡️</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 5-10 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Descubra os espiões infiltrados antes que eles sabotem as missões da guilda.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 30 min</span>
+            <span class="font-semibold text-rose-400">Roleplay & Blefe</span>
+          </div>
+        </div>
+
+        <!-- 5. Saboteur -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/620_m.jpg" alt="Saboteur" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/78350f/fef3c7?text=Saboteur'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-amber-950/90 text-amber-300 border border-amber-600/50 font-semibold text-xs rounded-lg shadow">Construção & Traição</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Saboteur ⛏️</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 3-10 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Anões mineradores buscam o ouro nas minas, enquanto sabotadores agem na sombra.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 30 min</span>
+            <span class="font-semibold text-amber-400">Minas & Labirinto</span>
+          </div>
+        </div>
+
+        <!-- 6. Dobro -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-blue-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/66291_m.jpg" alt="Dobro" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1e3a8a/dbeafe?text=Dobro'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-blue-950/90 text-blue-300 border border-blue-600/50 font-semibold text-xs rounded-lg shadow">Agilidade & Números</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Dobro 🔢</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 2-5 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Calcule rápido, descarte com esperteza e surpreenda seus oponentes na contagem.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 15 min</span>
+            <span class="font-semibold text-blue-400">Matemática & Tática</span>
+          </div>
+        </div>
+
+        <!-- 7. Uno -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-red-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/26669_m.jpg" alt="Uno" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/7f1d1d/fee2e2?text=Uno'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-red-950/90 text-red-300 border border-red-600/50 font-semibold text-xs rounded-lg shadow">Clássico Atemporal</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Uno 🃏</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 2-10 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">O lendário jogo de cartas de descarte rápido e bloqueios épicos (+4!).</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 15 min</span>
+            <span class="font-semibold text-red-400">Carteado Rápido</span>
+          </div>
+        </div>
+
+        <!-- 8. Alcatraz -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-slate-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/81692_m.jpg" alt="Alcatraz" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/0f172a/f1f5f9?text=Alcatraz'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-slate-900/90 text-slate-300 border border-slate-600/50 font-semibold text-xs rounded-lg shadow">Fuga & Alianças</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Alcatraz 🗝️</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 3-4 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Use memória e estratégia para salvar o maior número de gatos possível nesta fuga icônica!</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 45 min</span>
+            <span class="font-semibold text-slate-400">Memória</span>
+          </div>
+        </div>
+
+        <!-- 9. The Lie -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-emerald-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/66472_m.jpg" alt="The Lie" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/064e3b/ecfdf5?text=The+Lie'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-emerald-950/90 text-emerald-300 border border-emerald-600/50 font-semibold text-xs rounded-lg shadow">Engano & Percepção</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">The Lie 🤥</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 2-6 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">Todas as cartas mentem! Teste sua intuição trocando números e cores misteriosas.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 20 min</span>
+            <span class="font-semibold text-emerald-400">Party Game</span>
+          </div>
+        </div>
+
+        <!-- 10. Werewolves of Miller's Hollow -->
+        <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="relative overflow-hidden">
+              <img src="https://storage.googleapis.com/ludopedia-capas/1281_m.jpg" alt="Werewolves of Miller's Hollow" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1c1917/f5f5f4?text=Werewolves'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 px-2.5 py-1 bg-stone-900/90 text-amber-300 border border-amber-600/50 font-semibold text-xs rounded-lg shadow">Vila & Lobisomens</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-bold text-amber-200 font-medieval">Werewolves 🐺</h3>
+                <span class="text-xs text-amber-300/80 flex items-center gap-1 font-semibold"><i data-lucide="users" class="w-3.5 h-3.5"></i> 8-18 jog.</span>
+              </div>
+              <p class="text-amber-100/70 text-sm">A aldeia desperta! Descubra quem são os lobisomens antes do próximo luar.</p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-2 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300/60">
+            <span>⏱️ 30 min</span>
+            <span class="font-semibold text-amber-400">Grande Grupo</span>
+          </div>
+        </div>
+
+        <!-- Card Extra / Traga o seu -->
+        <div class="border-2 border-dashed border-amber-600/50 rounded-2xl p-6 flex flex-col justify-center items-center text-center bg-amber-950/20 hover:bg-amber-950/30 transition">
+          <div class="p-3 bg-amber-900/60 text-amber-300 rounded-full mb-3 border border-amber-600/50 shadow">
+            <i data-lucide="plus-circle" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-amber-200 font-medieval">Traga sua relíquia!</h3>
+          <p class="text-xs text-amber-300/80 mt-2 max-w-xs leading-relaxed">Tem outro jogo na sua coleção? Traga na mochila para colocarmos na mesa da taverna!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário RSVP Anônimo + Acompanhante (+1) -->
+    <section class="parchment-card rounded-3xl p-6 sm:p-8 text-amber-950 shadow-2xl relative">
+      <div class="text-center max-w-xl mx-auto mb-6">
+        <h2 class="text-3xl font-medieval font-bold text-amber-900 mb-2">
+          ⚔️ Confirmação de Presença
+        </h2>
+        <p class="text-sm font-medium text-amber-800">
+          Sua resposta será totalmente anônima! Apenas a contagem consolidada de heróis será visível a todos.
+        </p>
+      </div>
+
+      <form id="rsvp-form" class="max-w-md mx-auto space-y-5">
+        <!-- Seleção de Voto -->
+        <div class="grid grid-cols-2 gap-3">
+          <label class="cursor-pointer">
+            <input type="radio" name="attendance" value="confirm" class="peer sr-only" checked>
+            <div class="p-4 rounded-2xl border-2 border-amber-800/30 bg-amber-900/5 peer-checked:bg-emerald-800 peer-checked:text-emerald-100 peer-checked:border-emerald-700 font-medieval text-center transition shadow-sm hover:border-emerald-600">
+              <i data-lucide="shield-check" class="w-6 h-6 mx-auto mb-1"></i>
+              <span class="block text-sm font-bold">Estarei Presente!</span>
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="attendance" value="decline" class="peer sr-only">
+            <div class="p-4 rounded-2xl border-2 border-amber-800/30 bg-amber-900/5 peer-checked:bg-rose-800 peer-checked:text-rose-100 peer-checked:border-rose-700 font-medieval text-center transition shadow-sm hover:border-rose-600">
+              <i data-lucide="shield-x" class="w-6 h-6 mx-auto mb-1"></i>
+              <span class="block text-sm font-bold">Não Poderei Ir</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Opção de Acompanhante (+1) -->
+        <div id="plus-one-container" class="p-4 bg-amber-900/5 border border-amber-800/20 rounded-2xl">
+          <label class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-2 text-amber-900 font-medieval text-sm font-bold">
+              <i data-lucide="user-plus" class="w-5 h-5 text-amber-700"></i>
+              <span>Levar um Acompanhante (+1)?</span>
+            </div>
+            <input type="checkbox" id="plus-one" class="w-5 h-5 rounded border-amber-700 text-amber-800 focus:ring-amber-600">
+          </label>
+          <p class="text-xs text-amber-800/80 mt-1 pl-7">Marque se você trará +1 aventureiro ao piquenique.</p>
+        </div>
+
+        <!-- Motivo Opcional em caso de ausência -->
+        <div id="decline-reason-container" class="hidden">
+          <label class="block text-xs font-bold font-medieval text-amber-900 mb-1">Motivo / Mensagem (Opcional & Anônimo)</label>
+          <textarea id="decline-reason" rows="2" placeholder="Ex: Terei um compromisso no horário..." class="w-full px-4 py-2.5 rounded-xl border border-amber-800/30 bg-amber-50/80 text-amber-950 text-sm focus:outline-none focus:ring-2 focus:ring-amber-700 placeholder-amber-800/50"></textarea>
+        </div>
+
+        <!-- Botão Enviar -->
+        <button type="submit" id="submit-btn" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 text-amber-100 rounded-2xl font-medieval font-bold text-base shadow-lg transition duration-200 flex items-center justify-center gap-2 border border-amber-950/30">
+          <i data-lucide="send" class="w-5 h-5"></i> Registrar Resposta no Conselho
+        </button>
+
+        <p id="form-status" class="text-center text-xs font-semibold text-emerald-800 hidden font-medieval">
+          ✨ Sua resposta foi gravada anonimamente com sucesso!
+        </p>
+      </form>
+    </section>
+
+    <!-- Contador de Presença Público em Tempo Real -->
+    <section class="wood-card rounded-3xl p-6 sm:p-8 text-amber-100 relative overflow-hidden border-2 border-amber-600/40">
+      <div class="relative z-10">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-medieval font-bold text-amber-400 flex items-center gap-2">
+              <i data-lucide="swords"></i> Censo de Aventureiros da Danverna
+            </h2>
+            <p class="text-amber-300/80 text-sm mt-1">
+              Contagem total em tempo real (respostas anônimas mantidas pelo Conselho).
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-950/80 border border-amber-600/50 rounded-full text-xs font-medium text-amber-300 self-start sm:self-auto">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Atualizado ao vivo
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Total Confirmados -->
+          <div class="bg-amber-950/60 border border-emerald-600/40 rounded-2xl p-5 text-center shadow-inner">
+            <span class="block text-4xl sm:text-5xl font-black text-emerald-400 font-medieval" id="count-confirmed">--</span>
+            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-300/90 mt-1 block font-medieval">
+              🛡️ Confirmados para a Batalha
+            </span>
+          </div>
+
+          <!-- Total Recusados -->
+          <div class="bg-amber-950/60 border border-rose-600/40 rounded-2xl p-5 text-center shadow-inner">
+            <span class="block text-4xl sm:text-5xl font-black text-rose-400 font-medieval" id="count-declined">--</span>
+            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-rose-300/90 mt-1 block font-medieval">
+              📜 Ausências Justificadas
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-16 text-center text-xs text-amber-400/60 font-medieval">
+    <p>Danverna Lúdica • 20 de Novembro • Parque da Jaqueira</p>
+  </footer>
+
+  <!-- Script de Funcionalidades (Cronômetro, Calendário e RSVP com Google Planilhas) -->
+  <script>
+    // Inicializa os ícones Lucide
+    lucide.createIcons();
+
+    // 🔗 COLE AQUI O LINK DO SEU GOOGLE APPS WEB APP:
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTGH4iHy_jWvBrinTqMvopFk6JpFHKtvACpyqrhsg7nHkgTtaern_g00R2r46PTOgv/exec';
+
+    // 1. Configuração do Cronômetro Regressivo para 20 de Novembro às 13:00
+    const now = new Date();
+    let targetYear = now.getFullYear();
+    let targetDate = new Date(targetYear, 10, 20, 13, 0, 0); // Mês 10 = Novembro
+
+    if (now > targetDate) {
+      targetYear += 1;
+      targetDate = new Date(targetYear, 10, 20, 13, 0, 0);
+    }
+
+    function updateCountdown() {
+      const currentTime = new Date().getTime();
+      const difference = targetDate.getTime() - currentTime;
+
+      const countdownEl = document.getElementById('countdown');
+      if (!countdownEl) return;
+
+      if (difference <= 0) {
+        countdownEl.textContent = "O Encontro Começou! 🎲";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 2. Links de Calendário (Google Agenda e .ICS)
+    const eventTitle = encodeURIComponent("Danverna Lúdica - Piquenique & Jogos de Tabuleiro 🎲⚔️");
+    const eventDetails = encodeURIComponent("Encontro de jogos de tabuleiro ao ar livre e piquenique da Danverna Lúdica no Parque da Jaqueira.");
+    const eventLocation = encodeURIComponent("Parque da Jaqueira, Recife - PE, Brasil");
+    
+    const yearStr = targetYear.toString();
+    const googleDates = `${yearStr}1120T160000Z/${yearStr}1120T210000Z`;
+    
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${googleDates}&details=${eventDetails}&location=${eventLocation}`;
+    document.getElementById('btn-google-calendar').href = googleCalendarUrl;
+
+    // Gerador de Arquivo .ICS para Apple/Outlook
+    document.getElementById('btn-ics-calendar').addEventListener('click', () => {
+      const icsContent = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Danverna Ludica//PT-BR",
+        "BEGIN:VEVENT",
+        `SUMMARY:Danverna Lúdica - Jogos & Piquenique`,
+        `DESCRIPTION:Piquenique e jogos de tabuleiro ao ar livre no Parque da Jaqueira.`,
+        `LOCATION:Parque da Jaqueira, Recife - PE`,
+        `DTSTART:${yearStr}1120T160000Z`,
+        `DTEND:${yearStr}1120T210000Z`,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'Danverna_Ludica.ics');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // 3. Controle do Formulário (Mostrar/Esconder campos de ausência e acompanhante)
+    document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        const plusOneContainer = document.getElementById('plus-one-container');
+        const declineReasonContainer = document.getElementById('decline-reason-container');
+        
+        if (e.target.value === 'confirm') {
+          plusOneContainer.classList.remove('hidden');
+          declineReasonContainer.classList.add('hidden');
+        } else {
+          plusOneContainer.classList.add('hidden');
+          declineReasonContainer.classList.remove('hidden');
+        }
+      });
+    });
+
+    // 4. Integração do RSVP com o Google Planilhas
+    async function fetchTotals() {
+      if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) return;
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await response.json();
+        document.getElementById('count-confirmed').textContent = data.confirmados || 0;
+        document.getElementById('count-declined').textContent = data.recusados || 0;
+      } catch (err) {
+        console.error("Erro ao buscar censo:", err);
+      }
+    }
+
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const formStatus = document.getElementById('form-status');
+
+      if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) {
+        alert("Por favor, configure a URL do seu Google Apps Script no código antes de enviar.");
+        return;
+      }
+
+      const attendance = document.querySelector('input[name="attendance"]:checked').value;
+      const status = attendance === 'confirm' ? 'Vai' : 'Não vai';
+      const plusOne = document.getElementById('plus-one').checked ? 'Sim' : 'Não';
+      const motivo = document.getElementById('decline-reason').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i> Registrando no Conselho...`;
+      lucide.createIcons();
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status, acompanhante: plusOne, motivo })
+        });
+
+        formStatus.classList.remove('hidden');
+        submitBtn.innerHTML = `✓ Presença Gravada com Sucesso!`;
+        submitBtn.classList.replace('bg-amber-800', 'bg-emerald-800');
+        
+        // Atualiza os contadores na tela após 1.5 segundo
+        setTimeout(fetchTotals, 1500);
+      } catch (err) {
+        alert("Erro ao registrar resposta. Tente novamente.");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i> Tentar Novamente`;
+        lucide.createIcons();
+      }
+    });
+
+    // Carregar contagem inicial ao abrir a página
+    fetchTotals();
+  </script>
+</body>
+</html>
