@@ -45,6 +45,13 @@
       background-attachment: fixed;
     }
 
+    /* Ajuste para celulares */
+@media (max-width: 768px) {
+  .tavern-bg {
+    background-attachment: scroll;
+  }
+}
+
     /* Cartões */
     .parchment-card {
       background: #fbf4e2;
@@ -529,6 +536,7 @@
 
     // Integração com Google Apps Script
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuopydAjHi3i5q0RspghRKynGRmjP-EffmZnoc5aiwBpMpxW0oDgK0_tIEIwb46L0/exec';
+    let isEditing = false;
 
     // Contagem regressiva
     const now = new Date();
@@ -627,40 +635,53 @@
     }
 
     // Controle de resposta
-    function checkUserSubmission() {
-      const hasVoted = localStorage.getItem('danverna_voted');
-      const submitBtn = document.getElementById('submit-btn');
-      const formStatus = document.getElementById('form-status');
+    
+// Controle de resposta
+function checkUserSubmission() {
+  const hasVoted = localStorage.getItem('danverna_voted');
+  const submitBtn = document.getElementById('submit-btn');
+  const formStatus = document.getElementById('form-status');
 
-      if (hasVoted) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `✓ Você já respondeu este convite!`;
-        submitBtn.classList.replace('bg-amber-800', 'bg-emerald-900');
-        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+  if (hasVoted) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `✓ Você já respondeu este convite!`;
+    submitBtn.classList.replace('bg-amber-800', 'bg-emerald-900');
+    submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
 
-        formStatus.classList.remove('hidden');
-        formStatus.innerHTML = `
-          ✨ Sua resposta já está gravada no Conselho! <br>
-          <button type="button" id="btn-reset-vote" class="mt-2 text-xs text-amber-900 underline hover:text-amber-950 font-bold">
-            Clique aqui se desejar alterar sua resposta
-          </button>
-        `;
+    formStatus.classList.remove('hidden');
+    formStatus.innerHTML = `
+      ✨ Sua resposta já está gravada no Conselho! <br>
+      <button type="button" id="btn-reset-vote"
+        class="mt-2 text-xs text-amber-900 underline hover:text-amber-950 font-bold">
+        Clique aqui se desejar alterar sua resposta
+      </button>
+    `;
 
-        document.getElementById('btn-reset-vote')?.addEventListener('click', () => {
-          localStorage.removeItem('danverna_voted');
-          location.reload();
-        });
-      }
-    }
+    document.getElementById('btn-reset-vote')?.addEventListener('click', () => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i> Atualizar Resposta`;
+      submitBtn.classList.replace('bg-emerald-900', 'bg-amber-800');
+      submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+
+      formStatus.classList.add('hidden');
+
+      // Libera o formulário para edição, mas mantém o registro local.
+      isEditing = true;
+
+      lucide.createIcons();
+    });
+  }
+}
+
 
     // Envio do formulário
     document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      if (localStorage.getItem('danverna_voted')) {
-        alert("Você já enviou sua resposta neste dispositivo!");
-        return;
-      }
+      if (localStorage.getItem('danverna_voted') && !isEditing) {
+      alert("Você já enviou sua resposta neste dispositivo!");
+      return;
+}
 
       const submitBtn = document.getElementById('submit-btn');
       const formStatus = document.getElementById('form-status');
@@ -693,6 +714,7 @@
 
         // Registro local
         localStorage.setItem('danverna_voted', 'true');
+        isEditing = false;
 
         formStatus.classList.remove('hidden');
         submitBtn.innerHTML = `✓ Presença Gravada!`;
@@ -708,9 +730,12 @@
       }
     });
 
-    // Inicialização
-    fetchTotals();
-    checkUserSubmission();
+      // Inicialização
+      fetchTotals();
+      checkUserSubmission();
+
+      // Atualiza os totais a cada 1 hora
+      setInterval(fetchTotals, 3600000);
   </script>
 </body>
 </html>
