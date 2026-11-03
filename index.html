@@ -422,7 +422,16 @@
         </p>
       </div>
 
-      <form id="rsvp-form" class="max-w-md mx-auto space-y-5">
+<form id="rsvp-form" class="max-w-md mx-auto space-y-5">
+
+        <!-- Campo de Nome do Convidado (Enviado apenas para a planilha) -->
+        <div>
+          <label for="guest-name" class="block text-xs font-bold font-medieval text-amber-900 mb-1">
+            Seu Nome / Apelido (Visível apenas para o organizador)
+          </label>
+          <input type="text" id="guest-name" required placeholder="Ex: Gandalf, Dan, etc." class="w-full px-4 py-2.5 rounded-xl border border-amber-800/30 bg-amber-50/80 text-amber-950 text-sm focus:outline-none focus:ring-2 focus:ring-amber-700 placeholder-amber-800/50">
+        </div>
+
         <!-- Seleção de Voto -->
         <div class="grid grid-cols-2 gap-3">
           <label class="cursor-pointer">
@@ -513,13 +522,13 @@
     <p>Danverna Lúdica • 20 de Novembro • Parque da Jaqueira</p>
   </footer>
 
-  <!-- Script de Funcionalidades (Cronômetro, Calendário e RSVP com Google Planilhas) -->
+  <!-- Script de Funcionalidades (Cronômetro, Calendário, RSVP, Nome Oculto + Bloqueio de Voto Duplicado) -->
   <script>
     // Inicializa os ícones Lucide
     lucide.createIcons();
 
-    // 🔗 COLE AQUI O LINK DO SEU GOOGLE APPS WEB APP:
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTGH4iHy_jWvBrinTqMvopFk6JpFHKtvACpyqrhsg7nHkgTtaern_g00R2r46PTOgv/exec';
+    // 🔗 SEU LINK DO GOOGLE APPS SCRIPT WEB APP:
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuopydAjHi3i5q0RspghRKynGRmjP-EffmZnoc5aiwBpMpxW0oDgK0_tIEIwb46L0/exec';
 
     // 1. Configuração do Cronômetro Regressivo para 20 de Novembro às 13:00
     const now = new Date();
@@ -564,7 +573,6 @@
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${googleDates}&details=${eventDetails}&location=${eventLocation}`;
     document.getElementById('btn-google-calendar').href = googleCalendarUrl;
 
-    // Gerador de Arquivo .ICS para Apple/Outlook
     document.getElementById('btn-ics-calendar').addEventListener('click', () => {
       const icsContent = [
         "BEGIN:VCALENDAR",
@@ -589,7 +597,7 @@
       document.body.removeChild(link);
     });
 
-    // 3. Controle do Formulário (Mostrar/Esconder campos de ausência e acompanhante)
+    // 3. Alternar exibição de Acompanhante / Motivo
     document.querySelectorAll('input[name="attendance"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         const plusOneContainer = document.getElementById('plus-one-container');
@@ -605,7 +613,7 @@
       });
     });
 
-    // 4. Integração do RSVP com o Google Planilhas
+    // 4. Busca Totais do Censo
     async function fetchTotals() {
       if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) return;
       try {
@@ -618,15 +626,53 @@
       }
     }
 
+    // 5. Bloqueio de Resposta Única por Navegador (localStorage)
+    function checkUserSubmission() {
+      const hasVoted = localStorage.getItem('danverna_voted');
+      const submitBtn = document.getElementById('submit-btn');
+      const formStatus = document.getElementById('form-status');
+
+      if (hasVoted) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `✓ Você já respondeu este convite!`;
+        submitBtn.classList.replace('bg-amber-800', 'bg-emerald-900');
+        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+
+        formStatus.classList.remove('hidden');
+        formStatus.innerHTML = `
+          ✨ Sua resposta já está gravada no Conselho! <br>
+          <button type="button" id="btn-reset-vote" class="mt-2 text-xs text-amber-900 underline hover:text-amber-950 font-bold">
+            Clique aqui se desejar alterar sua resposta
+          </button>
+        `;
+
+        document.getElementById('btn-reset-vote')?.addEventListener('click', () => {
+          localStorage.removeItem('danverna_voted');
+          location.reload();
+        });
+      }
+    }
+
+    // 6. Submissão do Formulário (Com envio do Nome Oculto para a Planilha)
     document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      if (localStorage.getItem('danverna_voted')) {
+        alert("Você já enviou sua resposta neste dispositivo!");
+        return;
+      }
+
       const submitBtn = document.getElementById('submit-btn');
       const formStatus = document.getElementById('form-status');
 
       if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) {
-        alert("Por favor, configure a URL do seu Google Apps Script no código antes de enviar.");
+        alert("Por favor, insira a URL do seu Google Apps Script.");
         return;
       }
+
+      // Captura o nome preenchido no formulário
+      const nomeInput = document.getElementById('guest-name');
+      const nome = nomeInput ? nomeInput.value.trim() : 'Anônimo';
 
       const attendance = document.querySelector('input[name="attendance"]:checked').value;
       const status = attendance === 'confirm' ? 'Vai' : 'Não vai';
@@ -634,7 +680,7 @@
       const motivo = document.getElementById('decline-reason').value.trim();
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i> Registrando no Conselho...`;
+      submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i> Registrando...`;
       lucide.createIcons();
 
       try {
@@ -642,14 +688,17 @@
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status, acompanhante: plusOne, motivo })
+          body: JSON.stringify({ status, nome, acompanhante: plusOne, motivo })
         });
 
+        // Salva a trava local no navegador
+        localStorage.setItem('danverna_voted', 'true');
+
         formStatus.classList.remove('hidden');
-        submitBtn.innerHTML = `✓ Presença Gravada com Sucesso!`;
+        submitBtn.innerHTML = `✓ Presença Gravada!`;
         submitBtn.classList.replace('bg-amber-800', 'bg-emerald-800');
         
-        // Atualiza os contadores na tela após 1.5 segundo
+        checkUserSubmission();
         setTimeout(fetchTotals, 1500);
       } catch (err) {
         alert("Erro ao registrar resposta. Tente novamente.");
@@ -659,8 +708,9 @@
       }
     });
 
-    // Carregar contagem inicial ao abrir a página
+    // Inicializações ao carregar
     fetchTotals();
+    checkUserSubmission();
   </script>
 </body>
 </html>
