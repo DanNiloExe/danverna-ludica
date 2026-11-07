@@ -16,64 +16,7 @@
   <!-- Ícones -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .font-medieval {
-      font-family: 'MedievalSharp', cursive, serif;
-    }
-    .font-cinzel {
-      font-family: 'Cinzel Decorative', serif;
-    }
-    
-    /* Fundo */
-    .tavern-bg {
-      background-color: #140d0a;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.25), transparent 75%),
-        linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.5) 100%),
-        repeating-linear-gradient(
-          0deg,
-          #1c120c,
-          #1c120c 70px,
-          #0e0805 72px,
-          #22160e 75px,
-          #1c120c 145px
-        ),
-        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
-      background-attachment: fixed;
-    }
-
-    /* Ajuste para celulares */
-@media (max-width: 768px) {
-  .tavern-bg {
-    background-attachment: scroll;
-  }
-}
-
-    /* Cartões */
-    .parchment-card {
-      background: #fbf4e2;
-      background-image: radial-gradient(#eddcb9 1px, transparent 0);
-      background-size: 16px 16px;
-      border: 2px solid #b45309;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(180, 83, 9, 0.15);
-    }
-
-    .wood-card {
-      background: linear-gradient(145deg, #2e2017, #1c120b);
-      border: 1px solid #854d0e;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-    }
-
-    .game-card-img {
-      height: 160px;
-      width: 100%;
-      object-fit: cover;
-      border-bottom: 2px solid #78350f;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="tavern-bg min-h-screen text-amber-100 pb-16 antialiased">
 
@@ -193,7 +136,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-orange-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/24269_m.jpg" alt="Taco Gato Cabra Queijo Pizza" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/7c2d12/ffedd5?text=Taco+Gato'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/24269_m.jpg" alt="Taco Gato Cabra Queijo Pizza" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/7c2d12/ffedd5?text=Taco+Gato'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-orange-950/90 text-orange-300 border border-orange-600/50 font-semibold text-xs rounded-lg shadow">Agilidade & Reflexos</span>
     </div>
@@ -218,7 +161,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/55059_m.jpg" alt="Nem a Pato!" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/451a03/fde68a?text=Nem+a+Pato!'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/55059_m.jpg" alt="Nem a Pato!"  loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/451a03/fde68a?text=Nem+a+Pato!'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-amber-950/90 text-yellow-300 border border-yellow-600/50 font-semibold text-xs rounded-lg shadow">Criatividade & Improviso</span>
     </div>
@@ -243,7 +186,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-blue-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/66291_m.jpg" alt="Dobro" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1e3a8a/dbeafe?text=Dobro'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/66291_m.jpg" alt="Dobro"  loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1e3a8a/dbeafe?text=Dobro'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-blue-950/90 text-blue-300 border border-blue-600/50 font-semibold text-xs rounded-lg shadow">Números & Agilidade</span>
     </div>
@@ -268,7 +211,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-emerald-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/66472_m.jpg" alt="The Lie" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/064e3b/ecfdf5?text=The+Lie'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/66472_m.jpg" alt="The Lie" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/064e3b/ecfdf5?text=The+Lie'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-emerald-950/90 text-emerald-300 border border-emerald-600/50 font-semibold text-xs rounded-lg shadow">Engano & Percepção</span>
     </div>
@@ -293,7 +236,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-red-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/26669_m.jpg" alt="Uno" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/7f1d1d/fee2e2?text=Uno'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/26669_m.jpg" alt="Uno" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/7f1d1d/fee2e2?text=Uno'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-red-950/90 text-red-300 border border-red-600/50 font-semibold text-xs rounded-lg shadow">Cartas & Competição</span>
     </div>
@@ -318,7 +261,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-sky-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/77892_m.jpg" alt="Pool Party Stars" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/0c4a6e/e0f2fe?text=Pool+Party+Stars'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/77892_m.jpg" alt="Pool Party Stars" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/0c4a6e/e0f2fe?text=Pool+Party+Stars'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-sky-950/90 text-sky-300 border border-sky-600/50 font-semibold text-xs rounded-lg shadow">Dedução & Regras Secretas</span>
     </div>
@@ -343,7 +286,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-purple-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/460_m.jpg" alt="Coup" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/3b0764/f3e8ff?text=Coup'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/460_m.jpg" alt="Coup" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/3b0764/f3e8ff?text=Coup'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-purple-950/90 text-purple-300 border border-purple-600/50 font-semibold text-xs rounded-lg shadow">Blefe & Intriga</span>
     </div>
@@ -368,7 +311,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-rose-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/780_m.jpg" alt="The Resistance" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/4c0519/ffe4e6?text=The+Resistance'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/780_m.jpg" alt="The Resistance" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/4c0519/ffe4e6?text=The+Resistance'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-rose-950/90 text-rose-300 border border-rose-600/50 font-semibold text-xs rounded-lg shadow">Identidades Secretas</span>
     </div>
@@ -393,7 +336,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/1281_m.jpg" alt="Werewolves of Miller's Hollow" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1c1917/f5f5f4?text=Werewolves'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/1281_m.jpg" alt="Werewolves of Miller's Hollow" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/1c1917/f5f5f4?text=Werewolves'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-stone-900/90 text-amber-300 border border-amber-600/50 font-semibold text-xs rounded-lg shadow">Mistério & Identidades</span>
     </div>
@@ -418,7 +361,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-amber-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/620_m.jpg" alt="Saboteur" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/78350f/fef3c7?text=Saboteur'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/620_m.jpg" alt="Saboteur" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/78350f/fef3c7?text=Saboteur'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-amber-950/90 text-amber-300 border border-amber-600/50 font-semibold text-xs rounded-lg shadow">Construção & Traição</span>
     </div>
@@ -443,7 +386,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-pink-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/15264_m.jpg" alt="Unstable Unicorns" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/831843/fce7f3?text=Unstable+Unicorns'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/15264_m.jpg" alt="Unstable Unicorns" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/831843/fce7f3?text=Unstable+Unicorns'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-pink-950/90 text-pink-300 border border-pink-600/50 font-semibold text-xs rounded-lg shadow">Caos & Estratégia</span>
     </div>
@@ -468,7 +411,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-cyan-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/79397_m.jpg" alt="Tacta" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/164e63/ecfeff?text=Tacta'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/79397_m.jpg" alt="Tacta" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/164e63/ecfeff?text=Tacta'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-cyan-950/90 text-cyan-300 border border-cyan-600/50 font-semibold text-xs rounded-lg shadow">Estratégia & Conexões</span>
     </div>
@@ -493,7 +436,7 @@
 <div class="wood-card rounded-2xl overflow-hidden hover:border-slate-500/80 transition duration-300 flex flex-col justify-between group">
   <div>
     <div class="relative overflow-hidden">
-      <img src="https://storage.googleapis.com/ludopedia-capas/81692_m.jpg" alt="Alcatraz" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/0f172a/f1f5f9?text=Alcatraz'">
+      <img src="https://storage.googleapis.com/ludopedia-capas/81692_m.jpg" alt="Alcatraz" loading="lazy" class="game-card-img group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x300/0f172a/f1f5f9?text=Alcatraz'">
       <div class="absolute inset-0 bg-gradient-to-t from-[#1c120b] via-transparent to-transparent"></div>
       <span class="absolute top-3 right-3 px-2.5 py-1 bg-slate-900/90 text-slate-300 border border-slate-600/50 font-semibold text-xs rounded-lg shadow">Memória & Desafio</span>
     </div>
@@ -645,7 +588,7 @@
               <i data-lucide="swords"></i> Censo de Aventureiros da Danverna
             </h2>
             <p class="text-amber-300/80 text-sm mt-1">
-              Contagem total em tempo real (respostas anônimas mantidas pelo Conselho).
+              Contagem em quase tempo real (respostas anônimas mantidas pelo Conselho).
             </p>
           </div>
           <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-950/80 border border-amber-600/50 rounded-full text-xs font-medium text-amber-300 self-start sm:self-auto">
@@ -679,568 +622,7 @@
     <p>Danverna Lúdica • 20 de Novembro • Parque da Jaqueira</p>
   </footer>
 
-
-<script>
-  // ==========================================
-  // 1. CONFIGURAÇÕES GERAIS
-  // ==========================================
-
-  lucide.createIcons();
-
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuopydAjHi3i5q0RspghRKynGRmjP-EffmZnoc5aiwBpMpxW0oDgK0_tIEIwb46L0/exec';
-
-  let isEditing = false;
-
-
-  // ==========================================
-  // 2. CONTAGEM REGRESSIVA
-  // ==========================================
-
-  const now = new Date();
-
-  let targetYear = now.getFullYear();
-  let targetDate = new Date(targetYear, 10, 20, 13, 0, 0);
-
-  if (now > targetDate) {
-    targetYear += 1;
-    targetDate = new Date(targetYear, 10, 20, 13, 0, 0);
-  }
-
-  function updateCountdown() {
-    const difference = targetDate.getTime() - new Date().getTime();
-    const countdownEl = document.getElementById('countdown');
-
-    if (!countdownEl) return;
-
-    if (difference <= 0) {
-      countdownEl.textContent = "O Encontro Começou! 🎲";
-      return;
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    countdownEl.textContent =
-      `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
-  }
-
-
-  // ==========================================
-  // 3. CALENDÁRIO
-  // ==========================================
-
-  const eventTitle = encodeURIComponent(
-    "Danverna Lúdica - Piquenique & Jogos de Tabuleiro 🎲⚔️"
-  );
-
-  const eventDetails = encodeURIComponent(
-    "Encontro de jogos de tabuleiro ao ar livre e piquenique da Danverna Lúdica no Parque da Jaqueira."
-  );
-
-  const eventLocation = encodeURIComponent(
-    "Parque da Jaqueira, Recife - PE, Brasil"
-  );
-
-  const yearStr = targetYear.toString();
-
-  const googleDates = `${yearStr}1120T160000Z/${yearStr}1120T210000Z`;
-
-  const googleCalendarUrl =
-    `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${googleDates}&details=${eventDetails}&location=${eventLocation}`;
-
-  document.getElementById('btn-google-calendar').href = googleCalendarUrl;
-
-  document.getElementById('btn-ics-calendar').addEventListener('click', () => {
-    const icsContent = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Danverna Ludica//PT-BR",
-      "BEGIN:VEVENT",
-      `SUMMARY:Danverna Lúdica - Jogos & Piquenique`,
-      `DESCRIPTION:Piquenique e jogos de tabuleiro ao ar livre no Parque da Jaqueira.`,
-      `LOCATION:Parque da Jaqueira, Recife - PE`,
-      `DTSTART:${yearStr}1120T160000Z`,
-      `DTEND:${yearStr}1120T210000Z`,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\r\n");
-
-    const blob = new Blob([icsContent], {
-      type: 'text/calendar;charset=utf-8'
-    });
-
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', 'Danverna_Ludica.ics');
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    window.URL.revokeObjectURL(link.href);
-  });
-
-
-  // ==========================================
-  // 4. FORMULÁRIO - CAMPOS E INTERAÇÕES
-  // ==========================================
-
-  document.querySelectorAll('input[name="attendance"]').forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      const plusOneContainer = document.getElementById('plus-one-container');
-      const declineReasonContainer = document.getElementById('decline-reason-container');
-
-      if (e.target.value === 'confirm') {
-        plusOneContainer.classList.remove('hidden');
-        declineReasonContainer.classList.add('hidden');
-      } else {
-        plusOneContainer.classList.add('hidden');
-        declineReasonContainer.classList.remove('hidden');
-      }
-    });
-  });
-
-
-  // ==========================================
-  // 5. CENSO - ATUALIZAÇÃO DE PARTICIPANTES
-  // ==========================================
-
-  async function fetchTotals() {
-    if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) return;
-
-    try {
-      const response = await fetch(GOOGLE_SCRIPT_URL);
-      const data = await response.json();
-
-      document.getElementById('count-confirmed').textContent =
-        data.confirmados || 0;
-
-      document.getElementById('count-declined').textContent =
-        data.recusados || 0;
-
-    } catch (err) {
-      console.error("Erro ao buscar censo:", err);
-    }
-  }
-
-
-  // ==========================================
-  // 6. FORMULÁRIO - CONTROLE DE RESPOSTA
-  // ==========================================
-
-  function checkUserSubmission() {
-    const hasVoted = localStorage.getItem('danverna_voted');
-
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
-
-    if (hasVoted) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `✓ Você já respondeu este convite!`;
-
-      submitBtn.classList.replace('bg-amber-800', 'bg-emerald-900');
-      submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
-
-      formStatus.classList.remove('hidden');
-
-      formStatus.innerHTML = `
-        ✨ Sua resposta já está gravada no Conselho! <br>
-        <button type="button" id="btn-reset-vote"
-          class="mt-2 text-xs text-amber-900 underline hover:text-amber-950 font-bold">
-          Clique aqui se desejar alterar sua resposta
-        </button>
-      `;
-
-      document.getElementById('btn-reset-vote')?.addEventListener('click', () => {
-        submitBtn.disabled = false;
-
-        submitBtn.innerHTML =
-          `<i data-lucide="send" class="w-5 h-5"></i> Atualizar Resposta`;
-
-        submitBtn.classList.replace('bg-emerald-900', 'bg-amber-800');
-        submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
-
-        formStatus.classList.add('hidden');
-
-        isEditing = true;
-
-        lucide.createIcons();
-      });
-    }
-  }
-
-
-  // ==========================================
-  // 7. FORMULÁRIO - ENVIO DA RESPOSTA
-  // ==========================================
-
-  document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (localStorage.getItem('danverna_voted') && !isEditing) {
-      alert("Você já enviou sua resposta neste dispositivo!");
-      return;
-    }
-
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
-
-    if (GOOGLE_SCRIPT_URL.includes('SUA_URL')) {
-      alert("Por favor, insira a URL do seu Google Apps Script.");
-      return;
-    }
-
-    // Dados da resposta
-    const nomeInput = document.getElementById('guest-name');
-    const nome = nomeInput ? nomeInput.value.trim() : 'Anônimo';
-
-    const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
-
-    if (!attendance) {
-      alert("Selecione se você vai ou não ao encontro.");
-      return;
-    }
-
-    const status = attendance === 'confirm' ? 'Vai' : 'Não vai';
-
-    const plusOne = document.getElementById('plus-one').checked
-      ? 'Sim'
-      : 'Não';
-
-    const motivo = document.getElementById('decline-reason').value.trim();
-
-    submitBtn.disabled = true;
-    submitBtn.innerHTML =
-      `<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i> Registrando...`;
-
-    lucide.createIcons();
-
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          status,
-          nome,
-          acompanhante: plusOne,
-          motivo
-        })
-      });
-
-      // Registro local
-      localStorage.setItem('danverna_voted', 'true');
-      isEditing = false;
-
-      formStatus.classList.remove('hidden');
-
-      submitBtn.innerHTML = `✓ Presença Gravada!`;
-      submitBtn.classList.replace('bg-amber-800', 'bg-emerald-800');
-
-      checkUserSubmission();
-
-      setTimeout(fetchTotals, 1500);
-
-    } catch (err) {
-      console.error("Erro ao enviar resposta:", err);
-
-      alert("Erro ao registrar resposta. Tente novamente.");
-
-      submitBtn.disabled = false;
-      submitBtn.innerHTML =
-        `<i data-lucide="send" class="w-5 h-5"></i> Tentar Novamente`;
-
-      lucide.createIcons();
-    }
-  });
-
-
-      // ==========================================
-  // 8. VOTAÇÃO - SELEÇÃO DOS JOGOS
-  // ==========================================
-
-  const voteButtons = document.querySelectorAll('.game-vote-btn');
-  const selectedCount = document.getElementById('votes-selected-count');
-  const saveVotesBtn = document.getElementById('save-votes-btn');
-  const votesStatus = document.getElementById('votes-status');
-
-  const VOTES_STORAGE_KEY = 'danverna_game_votes';
-
-  let selectedGames = [];
-
-  // Recupera seleções anteriores
-  try {
-    const savedVotes = JSON.parse(
-      localStorage.getItem(VOTES_STORAGE_KEY) || '[]'
-    );
-
-    if (Array.isArray(savedVotes)) {
-      selectedGames = savedVotes.slice(0, 3);
-    }
-  } catch (err) {
-    selectedGames = [];
-  }
-
-  // Atualiza a aparência dos botões
-  function updateVoteButtons() {
-    voteButtons.forEach(button => {
-      const game = button.dataset.game;
-      const selected = selectedGames.includes(game);
-
-      button.setAttribute('aria-pressed', selected);
-
-      button.classList.toggle('bg-amber-700', selected);
-      button.classList.toggle('text-amber-100', selected);
-      button.classList.toggle('border-amber-400', selected);
-
-      if (selected) {
-        button.innerHTML = '✓ Selecionado';
-      } else {
-        button.innerHTML = '＋ Quero jogar!';
-      }
-    });
-
-    selectedCount.textContent = selectedGames.length;
-    saveVotesBtn.disabled = selectedGames.length === 0;
-  }
-
-  // Seleciona ou remove um jogo
-  voteButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const game = button.dataset.game;
-      const alreadySelected = selectedGames.includes(game);
-
-      if (alreadySelected) {
-        selectedGames = selectedGames.filter(item => item !== game);
-      } else {
-        if (selectedGames.length >= 3) {
-          votesStatus.textContent = 'Você pode escolher no máximo 3 jogos!';
-          return;
-        }
-
-        selectedGames.push(game);
-      }
-
-      localStorage.setItem(
-        VOTES_STORAGE_KEY,
-        JSON.stringify(selectedGames)
-      );
-
-      votesStatus.textContent = '';
-      updateVoteButtons();
-    });
-  });
-
-  // Restaura a seleção ao abrir a página
-  updateVoteButtons();
-
-  // ==========================================
-  // 9. VOTAÇÃO - ENVIO DOS VOTOS
-  // ==========================================
-
-  // Identificador anônimo e persistente do navegador
-  let voterId = localStorage.getItem('danverna_game_voter_id');
-
-  if (!voterId) {
-    voterId = crypto.randomUUID
-      ? crypto.randomUUID()
-      : 'voter-' + Date.now() + '-' + Math.random().toString(36).substring(2);
-
-    localStorage.setItem('danverna_game_voter_id', voterId);
-  }
-
-  // Envia os votos para o Google Sheets
-  saveVotesBtn.addEventListener('click', async () => {
-    if (selectedGames.length === 0 || selectedGames.length > 3) {
-      votesStatus.textContent = 'Selecione de 1 a 3 jogos antes de registrar.';
-      return;
-    }
-
-    saveVotesBtn.disabled = true;
-    saveVotesBtn.textContent = 'Registrando votos...';
-    votesStatus.textContent = 'Enviando suas escolhas para a Taverna...';
-
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify({
-          tipo: 'votacao',
-          id: voterId,
-          jogos: selectedGames
-        })
-      });
-
-      votesStatus.textContent =
-        'Solicitação enviada! Seus votos foram registrados. 🎲';
-        setTimeout(fetchGameRanking, 1500);
-
-    } catch (err) {
-      console.error('Erro ao enviar votos:', err);
-
-      votesStatus.textContent =
-        'Não foi possível enviar os votos. Tente novamente.';
-    } finally {
-      saveVotesBtn.textContent = 'Registrar meus votos';
-      updateVoteButtons();
-    }
-  });
-
- 
-  // ==========================================
-  // 10. VOTAÇÃO - CLASSIFICAÇÃO DOS JOGOS
-  // ==========================================
-
-  async function fetchGameRanking() {
-    const rankingContainer = document.getElementById('games-ranking');
-
-    try {
-      const response = await fetch(
-        GOOGLE_SCRIPT_URL + '?tipo=votacao&t=' + Date.now()
-      );
-
-      const data = await response.json();
-
-      if (data.result !== 'success') {
-        throw new Error('Não foi possível consultar a classificação.');
-      }
-
-      rankingContainer.innerHTML = '';
-
-      if (!data.ranking || data.ranking.length === 0) {
-        rankingContainer.innerHTML = `
-          <p class="text-center text-amber-200/60 text-sm">
-            Ainda não existem votos registrados. Seja o primeiro!
-          </p>
-        `;
-        return;
-      }
-
-      // Imagens dos jogos
-      const gameImages = {
-        'Taco Gato 🐱': 'https://storage.googleapis.com/ludopedia-capas/24269_m.jpg',
-        'Nem a Pato! 🦆': 'https://storage.googleapis.com/ludopedia-capas/55059_m.jpg',
-        'Dobro 🔢': 'https://storage.googleapis.com/ludopedia-capas/66291_m.jpg',
-        'The Lie 🤥': 'https://storage.googleapis.com/ludopedia-capas/66472_m.jpg',
-        'Uno 🃏': 'https://storage.googleapis.com/ludopedia-capas/26669_m.jpg',
-        'Pool Party Stars 🏖️': 'https://storage.googleapis.com/ludopedia-capas/77892_m.jpg',
-        'Coup 👑': 'https://storage.googleapis.com/ludopedia-capas/460_m.jpg',
-        'The Resistance 🗡️': 'https://storage.googleapis.com/ludopedia-capas/780_m.jpg',
-        'Werewolves 🐺': 'https://storage.googleapis.com/ludopedia-capas/1281_m.jpg',
-        'Saboteur ⛏️': 'https://storage.googleapis.com/ludopedia-capas/620_m.jpg',
-        'Unstable Unicorns 🦄': 'https://storage.googleapis.com/ludopedia-capas/15264_m.jpg',
-        'Tacta 🔷': 'https://storage.googleapis.com/ludopedia-capas/79397_m.jpg',
-        'Alcatraz 🗝️': 'https://storage.googleapis.com/ludopedia-capas/81692_m.jpg'
-      };
-
-      const maxVotes = Math.max(...data.ranking.map(item => item.votos));
-
-      data.ranking.forEach((item, index) => {
-        const position = index + 1;
-
-        const percentage = maxVotes > 0
-          ? (item.votos / maxVotes) * 100
-          : 0;
-
-        const medal = position === 1
-          ? '🥇'
-          : position === 2
-            ? '🥈'
-            : position === 3
-              ? '🥉'
-              : `${position}º`;
-
-        const gameRow = document.createElement('div');
-
-        gameRow.className = `
-          rounded-xl p-4 border transition-all duration-300
-          ${position === 1
-            ? 'bg-amber-900/30 border-amber-400/60 shadow-lg shadow-amber-900/20'
-            : 'bg-black/20 border-amber-700/30 hover:border-amber-500/50'}
-        `;
-
-        const header = document.createElement('div');
-        header.className = 'flex items-center justify-between gap-3 mb-3';
-
-        // Imagem e título do jogo
-        const gameInfo = document.createElement('div');
-        gameInfo.className = 'flex items-center gap-3 min-w-0';
-
-        const gameImage = document.createElement('img');
-        gameImage.src = gameImages[item.jogo] || 'https://placehold.co/80x80';
-        gameImage.alt = item.jogo;
-        gameImage.className = 'w-12 h-12 object-cover rounded-lg border border-amber-600/40 shrink-0';
-
-        const gameName = document.createElement('span');
-        gameName.className = `
-          font-medieval font-bold
-          ${position === 1 ? 'text-amber-300' : 'text-amber-100'}
-        `;
-        gameName.textContent = `${medal} ${item.jogo}`;
-
-        gameInfo.appendChild(gameImage);
-        gameInfo.appendChild(gameName);
-
-        const voteCount = document.createElement('span');
-        voteCount.className = 'text-amber-400 font-bold text-sm whitespace-nowrap';
-        voteCount.textContent =
-          `${item.votos} ${item.votos === 1 ? 'voto' : 'votos'}`;
-
-        header.appendChild(gameInfo);
-        header.appendChild(voteCount);
-
-        const progressBackground = document.createElement('div');
-        progressBackground.className =
-          'w-full h-2 bg-black/40 rounded-full overflow-hidden';
-
-        const progressBar = document.createElement('div');
-        progressBar.className = `
-          h-full rounded-full transition-all duration-700
-          ${position === 1 ? 'bg-amber-400' : 'bg-amber-700'}
-        `;
-
-        progressBar.style.width = `${percentage}%`;
-
-        progressBackground.appendChild(progressBar);
-
-        gameRow.appendChild(header);
-        gameRow.appendChild(progressBackground);
-
-        rankingContainer.appendChild(gameRow);
-      });
-
-    } catch (err) {
-      console.error('Erro ao carregar classificação:', err);
-
-      rankingContainer.innerHTML = `
-        <p class="text-center text-red-300 text-sm">
-          Não foi possível carregar a classificação.
-        </p>
-      `;
-    }
-  }
-
-  // ==========================================
-  // 11. INICIALIZAÇÃO
-  // ==========================================
-fetchGameRanking();
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  fetchTotals();
-  checkUserSubmission();
-
-  // Atualiza os totais a cada 1 hora
-  setInterval(fetchTotals, 3600000);
-
-</script>
+  <script src="js/script.js"></script>
 
 </body>
 </html>

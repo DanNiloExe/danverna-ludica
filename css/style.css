@@ -1,0 +1,59 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-medieval {
+  font-family: 'MedievalSharp', cursive, serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel Decorative', serif;
+}
+
+/* Fundo */
+.tavern-bg {
+  background-color: #140d0a;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.25), transparent 75%),
+    linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.5) 100%),
+    repeating-linear-gradient(
+      0deg,
+      #1c120c,
+      #1c120c 70px,
+      #0e0805 72px,
+      #22160e 75px,
+      #1c120c 145px
+    ),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 768px) {
+  .tavern-bg {
+    background-attachment: scroll;
+  }
+}
+
+/* Cartões */
+.parchment-card {
+  background: #fbf4e2;
+  background-image: radial-gradient(#eddcb9 1px, transparent 0);
+  background-size: 16px 16px;
+  border: 2px solid #b45309;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(180, 83, 9, 0.15);
+}
+
+.wood-card {
+  background: linear-gradient(145deg, #2e2017, #1c120b);
+  border: 1px solid #854d0e;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+}
+
+.game-card-img {
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 2px solid #78350f;
+}
