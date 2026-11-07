@@ -1093,6 +1093,7 @@
     }
   });
 
+ 
   // ==========================================
   // 10. VOTAÇÃO - CLASSIFICAÇÃO DOS JOGOS
   // ==========================================
@@ -1122,8 +1123,31 @@
         return;
       }
 
+      // Imagens dos jogos
+      const gameImages = {
+        'Taco Gato 🐱': 'https://storage.googleapis.com/ludopedia-capas/24269_m.jpg',
+        'Nem a Pato! 🦆': 'https://storage.googleapis.com/ludopedia-capas/55059_m.jpg',
+        'Dobro 🔢': 'https://storage.googleapis.com/ludopedia-capas/66291_m.jpg',
+        'The Lie 🤥': 'https://storage.googleapis.com/ludopedia-capas/66472_m.jpg',
+        'Uno 🃏': 'https://storage.googleapis.com/ludopedia-capas/26669_m.jpg',
+        'Pool Party Stars 🏖️': 'https://storage.googleapis.com/ludopedia-capas/77892_m.jpg',
+        'Coup 👑': 'https://storage.googleapis.com/ludopedia-capas/460_m.jpg',
+        'The Resistance 🗡️': 'https://storage.googleapis.com/ludopedia-capas/780_m.jpg',
+        'Werewolves 🐺': 'https://storage.googleapis.com/ludopedia-capas/1281_m.jpg',
+        'Saboteur ⛏️': 'https://storage.googleapis.com/ludopedia-capas/620_m.jpg',
+        'Unstable Unicorns 🦄': 'https://storage.googleapis.com/ludopedia-capas/15264_m.jpg',
+        'Tacta 🔷': 'https://storage.googleapis.com/ludopedia-capas/79397_m.jpg',
+        'Alcatraz 🗝️': 'https://storage.googleapis.com/ludopedia-capas/81692_m.jpg'
+      };
+
+      const maxVotes = Math.max(...data.ranking.map(item => item.votos));
+
       data.ranking.forEach((item, index) => {
         const position = index + 1;
+
+        const percentage = maxVotes > 0
+          ? (item.votos / maxVotes) * 100
+          : 0;
 
         const medal = position === 1
           ? '🥇'
@@ -1135,22 +1159,59 @@
 
         const gameRow = document.createElement('div');
 
-        gameRow.className =
-          'flex items-center justify-between gap-3 bg-black/20 border border-amber-700/30 rounded-xl p-3';
+        gameRow.className = `
+          rounded-xl p-4 border transition-all duration-300
+          ${position === 1
+            ? 'bg-amber-900/30 border-amber-400/60 shadow-lg shadow-amber-900/20'
+            : 'bg-black/20 border-amber-700/30 hover:border-amber-500/50'}
+        `;
+
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between gap-3 mb-3';
+
+        // Imagem e título do jogo
+        const gameInfo = document.createElement('div');
+        gameInfo.className = 'flex items-center gap-3 min-w-0';
+
+        const gameImage = document.createElement('img');
+        gameImage.src = gameImages[item.jogo] || 'https://placehold.co/80x80';
+        gameImage.alt = item.jogo;
+        gameImage.className = 'w-12 h-12 object-cover rounded-lg border border-amber-600/40 shrink-0';
 
         const gameName = document.createElement('span');
-        gameName.className = 'text-amber-100 font-semibold';
+        gameName.className = `
+          font-medieval font-bold
+          ${position === 1 ? 'text-amber-300' : 'text-amber-100'}
+        `;
         gameName.textContent = `${medal} ${item.jogo}`;
 
-        const voteCount = document.createElement('span');
-        voteCount.className =
-          'text-amber-400 font-bold text-sm whitespace-nowrap';
+        gameInfo.appendChild(gameImage);
+        gameInfo.appendChild(gameName);
 
+        const voteCount = document.createElement('span');
+        voteCount.className = 'text-amber-400 font-bold text-sm whitespace-nowrap';
         voteCount.textContent =
           `${item.votos} ${item.votos === 1 ? 'voto' : 'votos'}`;
 
-        gameRow.appendChild(gameName);
-        gameRow.appendChild(voteCount);
+        header.appendChild(gameInfo);
+        header.appendChild(voteCount);
+
+        const progressBackground = document.createElement('div');
+        progressBackground.className =
+          'w-full h-2 bg-black/40 rounded-full overflow-hidden';
+
+        const progressBar = document.createElement('div');
+        progressBar.className = `
+          h-full rounded-full transition-all duration-700
+          ${position === 1 ? 'bg-amber-400' : 'bg-amber-700'}
+        `;
+
+        progressBar.style.width = `${percentage}%`;
+
+        progressBackground.appendChild(progressBar);
+
+        gameRow.appendChild(header);
+        gameRow.appendChild(progressBackground);
 
         rankingContainer.appendChild(gameRow);
       });
